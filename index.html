@@ -1,103 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Граф лорбука</title>
-    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
-    <style>
-        #graph { width: 100%; height: 800px; border: 1px solid lightgray; }
-    </style>
-</head>
-<body>
-    <h2>Загрузите JSON лорбука</h2>
-    <input type="file" id="jsonInput" accept=".json">
-    <div id="graph"></div>
-
-    <script>
-        document.getElementById('jsonInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const lorebook = JSON.parse(event.target.result);
-                visualizeGraph(lorebook);
-            };
-            reader.readAsText(file);
-        });
-
-        function wrapTextByWords(text, wordsPerLine) {
-            if (!text) return "";
-            const words = text.split(' ');
-            let lines = [];
-            for (let i = 0; i < words.length; i += wordsPerLine) {
-                lines.push(words.slice(i, i + wordsPerLine).join(' '));
-            }
-            return lines.join('\n');
-        }
-
-        function visualizeGraph(lorebook) {
-            const nodes = [];
-            const edges = [];
-            const entryMap = {};
-
-            for (const key in lorebook.entries) {
-                const entry = lorebook.entries[key];
-                const content = entry.content ? wrapTextByWords(entry.content, 40) : '';
-                const keys = entry.key ? entry.key.join(', ') : '';
-                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
-                const comment = entry.comment || key;
-
-                const title = `Name: ${comment}\nContent: ${content}\nKeys: ${keys}\nKeySecondary: ${keysSecondary}`;
-                nodes.push({
-                    id: comment,
-                    label: comment,
-                    title: title,
-                    shape: "box",
-                    borderRadius: 10
-                });
-                entryMap[comment] = entry;
-            }
-
-            const entries = Object.values(entryMap);
-            for (let i = 0; i < entries.length; i++) {
-                for (let j = i + 1; j < entries.length; j++) {
-                    const keys1 = new Set(entries[i].key || []);
-                    const keys2 = new Set(entries[j].key || []);
-                    const commonKeys = [...keys1].filter(k => keys2.has(k));
-                    for (const key of commonKeys) {
-                        edges.push({
-                            from: entries[i].comment,
-                            to: entries[j].comment,
-                            label: key,
-                            title: key
-                        });
-                    }
-                }
-            }
-
-            const container = document.getElementById('graph');
-            const data = {nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges)};
-            const options = {
-                nodes: {
-                    shape: "box",
-                    borderRadius: 10,
-                    font: {size: 14}
-                },
-                edges: {
-                    arrows: {to: true},
-                    font: {size: 10, align: "top"}
-                },
-                physics: {
-                    enabled: true,
-                    barnesHut: {
-                        gravitationalConstant: -1000,
-                        centralGravity: 0.3,
-                        springLength: 200,
-                        springConstant: 0.02
-                    }
-                }
-            };
-            new vis.Network(container, data, options);
-        }
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Гайд по ошибкам в Таверне и Джанитор</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navigation">
+        <h3>Меню</h3>
+        <ul>
+          <li><a href="#intro" data-content="intro">Введение</a></li>
+          <li><a href="#base" data-content="base">База (Консоль)</a></li>
+          <li><a href="#tavern" data-content="tavern">Ошибки Таверны</a></li>
+          <li>
+            <a href="#janitorai" data-content="janitorai">Ошибки JanitorAI</a>
+          </li>
+          <li>
+            <a href="#electronhub" data-content="electronhub"
+              >Ошибки ElectronHub.ai</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <main id="content-area">
+        <!-- Сюда будет загружаться контент -->
+      </main>
+    </div>
+    <script src="js/app.js"></script>
+  </body>
 </html>
