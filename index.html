@@ -6,6 +6,11 @@
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
         #graph { width: 100%; height: 800px; border: 1px solid lightgray; }
+        .node-tooltip {
+            word-wrap: break-word;
+            max-width: 200px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -37,7 +42,7 @@
                 const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
                 const comment = entry.comment || key;
 
-                const title = `Name: ${comment}<br>Content: ${content}<br>Keys: ${keys}<br>KeySecondary: ${keysSecondary}`;
+                const title = `<div class="node-tooltip">Name: ${comment}<br>Content: ${content}<br>Keys: ${keys}<br>KeySecondary: ${keysSecondary}</div>`;
                 nodes.push({
                     id: comment,
                     label: comment,
