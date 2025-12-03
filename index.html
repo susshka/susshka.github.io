@@ -24,23 +24,6 @@
             reader.readAsText(file);
         });
 
-        function wrapText(text, width) {
-            if (!text) return '';
-            const words = text.split(' ');
-            let lines = [];
-            let currentLine = '';
-            for (const word of words) {
-                if (currentLine.length + word.length + 1 <= width) {
-                    currentLine += (currentLine ? ' ' : '') + word;
-                } else {
-                    lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-            if (currentLine) lines.push(currentLine);
-            return lines.join('<br>');
-        }
-
         function visualizeGraph(lorebook) {
             const nodes = [];
             const edges = [];
@@ -48,12 +31,13 @@
 
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
-                const content = entry.content ? wrapText(entry.content, 50) : '';
-                const keys = entry.key ? wrapText(entry.key.join(', '), 50) : '';
-                const keysSecondary = entry.keysecondary ? wrapText(entry.keysecondary.join(', '), 50) : '';
+                const content = entry.content ? entry.content : '';
+                const keys = entry.key ? entry.key.join(', ') : '';
+                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
                 const comment = entry.comment || key;
 
-                const title = `Name: ${comment}<br>Content: ${content}<br>Keys: ${keys}<br>KeySecondary: ${keysSecondary}`;
+                // Переносим текст с помощью \n
+                const title = `Name: ${comment}\nContent: ${content}\nKeys: ${keys}\nKeySecondary: ${keysSecondary}`;
                 nodes.push({
                     id: comment,
                     label: comment,
