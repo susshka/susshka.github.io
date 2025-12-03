@@ -24,21 +24,13 @@
             reader.readAsText(file);
         });
 
-        function wrapText(text, width) {
+        function wrapTextByWords(text, wordsPerLine) {
             if (!text) return "";
             const words = text.split(' ');
             let lines = [];
-            let currentLine = words[0];
-
-            for (let i = 1; i < words.length; i++) {
-                if (currentLine.length + words[i].length < width) {
-                    currentLine += ' ' + words[i];
-                } else {
-                    lines.push(currentLine);
-                    currentLine = words[i];
-                }
+            for (let i = 0; i < words.length; i += wordsPerLine) {
+                lines.push(words.slice(i, i + wordsPerLine).join(' '));
             }
-            lines.push(currentLine);
             return lines.join('\n');
         }
 
@@ -49,9 +41,9 @@
 
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
-                const content = entry.content ? wrapText(entry.content, 50) : '';
-                const keys = entry.key ? wrapText(entry.key.join(', '), 50) : '';
-                const keysSecondary = entry.keysecondary ? wrapText(entry.keysecondary.join(', '), 50) : '';
+                const content = entry.content ? wrapTextByWords(entry.content, 40) : '';
+                const keys = entry.key ? entry.key.join(', ') : '';
+                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
                 const comment = entry.comment || key;
 
                 const title = `Name: ${comment}\nContent: ${content}\nKeys: ${keys}\nKeySecondary: ${keysSecondary}`;
