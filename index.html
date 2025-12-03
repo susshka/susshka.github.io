@@ -24,6 +24,24 @@
             reader.readAsText(file);
         });
 
+        function wrapText(text, width) {
+            if (!text) return "";
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + words[i].length < width) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.join('\n');
+        }
+
         function visualizeGraph(lorebook) {
             const nodes = [];
             const edges = [];
@@ -31,12 +49,11 @@
 
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
-                const content = entry.content ? entry.content : '';
-                const keys = entry.key ? entry.key.join(', ') : '';
-                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
+                const content = entry.content ? wrapText(entry.content, 50) : '';
+                const keys = entry.key ? wrapText(entry.key.join(', '), 50) : '';
+                const keysSecondary = entry.keysecondary ? wrapText(entry.keysecondary.join(', '), 50) : '';
                 const comment = entry.comment || key;
 
-                // Переносим текст с помощью \n
                 const title = `Name: ${comment}\nContent: ${content}\nKeys: ${keys}\nKeySecondary: ${keysSecondary}`;
                 nodes.push({
                     id: comment,
