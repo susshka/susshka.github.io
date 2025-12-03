@@ -6,11 +6,6 @@
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
         #graph { width: 100%; height: 800px; border: 1px solid lightgray; }
-        .node-label {
-            word-wrap: break-word;
-            max-width: 200px;
-            white-space: normal;
-        }
     </style>
 </head>
 <body>
@@ -29,6 +24,23 @@
             reader.readAsText(file);
         });
 
+        function wrapText(text, width) {
+            if (!text) return '';
+            const words = text.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if (currentLine.length + word.length + 1 <= width) {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+            return lines.join('<br>');
+        }
+
         function visualizeGraph(lorebook) {
             const nodes = [];
             const edges = [];
@@ -36,17 +48,15 @@
 
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
-                const content = entry.content ? entry.content : '';
-                const keys = entry.key ? entry.key.join(', ') : '';
-                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
+                const content = entry.content ? wrapText(entry.content, 50) : '';
+                const keys = entry.key ? wrapText(entry.key.join(', '), 50) : '';
+                const keysSecondary = entry.keysecondary ? wrapText(entry.keysecondary.join(', '), 50) : '';
                 const comment = entry.comment || key;
 
-                // Переносим текст в label
-                const label = `<div class="node-label">${comment}</div>`;
                 const title = `Name: ${comment}<br>Content: ${content}<br>Keys: ${keys}<br>KeySecondary: ${keysSecondary}`;
                 nodes.push({
                     id: comment,
-                    label: label,
+                    label: comment,
                     title: title,
                     shape: "box",
                     borderRadius: 10
@@ -77,7 +87,7 @@
                 nodes: {
                     shape: "box",
                     borderRadius: 10,
-                    font: {size: 14, multi: "html"}
+                    font: {size: 14}
                 },
                 edges: {
                     arrows: {to: true},
