@@ -41,9 +41,9 @@
 
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
-                const content = entry.content ? wrapTextByWords(entry.content, 20) : '';
-                const keys = entry.key ? wrapTextByWords(entry.key.join(', '), 20) : '';
-                const keysSecondary = entry.keysecondary ? wrapTextByWords(entry.keysecondary.join(', '), 20) : '';
+                const content = entry.content ? wrapTextByWords(entry.content, 40) : '';
+                const keys = entry.key ? entry.key.join(', ') : '';
+                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
                 const comment = entry.comment || key;
 
                 const title = `Name: ${comment}\nContent: ${content}\nKeys: ${keys}\nKeySecondary: ${keysSecondary}`;
