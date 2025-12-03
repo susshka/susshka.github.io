@@ -42,8 +42,8 @@
                     id: comment,
                     label: comment,
                     title: title,
-                    shape: 'box',
-                    borderRadius: 5  // Скругление углов
+                    shape: "box",
+                    borderRadius: 10
                 });
                 entryMap[comment] = entry;
             }
@@ -70,8 +70,9 @@
             const data = {nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges)};
             const options = {
                 nodes: {
-                    shape: 'box',
-                    borderRadius: 5
+                    shape: "box",
+                    borderRadius: 10,
+                    font: {size: 14}
                 },
                 edges: {
                     arrows: {to: true},
