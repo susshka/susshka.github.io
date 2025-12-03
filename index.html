@@ -34,7 +34,6 @@
             const edges = [];
             const entryMap = {};
 
-            // Добавляем ноды
             for (const key in lorebook.entries) {
                 const entry = lorebook.entries[key];
                 const content = entry.content ? entry.content : '';
@@ -53,7 +52,6 @@
                 entryMap[comment] = entry;
             }
 
-            // Добавляем рёбра по общим ключам
             const entries = Object.values(entryMap);
             for (let i = 0; i < entries.length; i++) {
                 for (let j = i + 1; j < entries.length; j++) {
