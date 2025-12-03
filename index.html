@@ -2,59 +2,57 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Визуализация Lorebook</title>
-    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <title>Граф лорбука</title>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
-        #mynetwork {
-            width: 100%;
-            height: 800px;
-            border: 1px solid lightgray;
-        }
+        #graph { width: 100%; height: 800px; border: 1px solid lightgray; }
     </style>
 </head>
 <body>
-    <h2>Загрузите JSON-файл Lorebook</h2>
-    <input type="file" id="jsonFile" accept=".json">
-    <div id="mynetwork"></div>
+    <h2>Загрузите JSON лорбука</h2>
+    <input type="file" id="jsonInput" accept=".json">
+    <div id="graph"></div>
 
     <script>
-        document.getElementById('jsonFile').addEventListener('change', function(event) {
-            const file = event.target.files[0];
+        document.getElementById('jsonInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
             const reader = new FileReader();
-            reader.onload = function(e) {
-                const lorebook = JSON.parse(e.target.result);
-                visualize(lorebook);
+            reader.onload = function(event) {
+                const lorebook = JSON.parse(event.target.result);
+                visualizeGraph(lorebook);
             };
             reader.readAsText(file);
         });
 
-        function visualize(lorebook) {
+        function visualizeGraph(lorebook) {
             const nodes = [];
             const edges = [];
+            const entryMap = {};
 
             // Добавляем ноды
-            for (const entry in lorebook.entries) {
-                const data = lorebook.entries[entry];
-                const content = data.content;
-                const keys = data.key.join(', ');
-                const keysSecondary = data.keysecondary.join(', ');
-                const comment = data.comment;
+            for (const key in lorebook.entries) {
+                const entry = lorebook.entries[key];
+                const content = entry.content ? entry.content : '';
+                const keys = entry.key ? entry.key.join(', ') : '';
+                const keysSecondary = entry.keysecondary ? entry.keysecondary.join(', ') : '';
+                const comment = entry.comment || key;
 
-                const title = `Name:\n${comment}\nContent:\n${content}\nKeys:\n${keys}\nKeySecondary:\n${keysSecondary}`;
+                const title = `Name: ${comment}<br>Content: ${content}<br>Keys: ${keys}<br>KeySecondary: ${keysSecondary}`;
                 nodes.push({id: comment, label: comment, title: title});
+                entryMap[comment] = entry;
             }
 
-            // Добавляем ребра по общим ключам
-            for (const entry1 in lorebook.entries) {
-                for (const entry2 in lorebook.entries) {
-                    if (entry1 >= entry2) continue;
-                    const keys1 = new Set(lorebook.entries[entry1].key);
-                    const keys2 = new Set(lorebook.entries[entry2].key);
+            // Добавляем рёбра по общим ключам
+            const entries = Object.values(entryMap);
+            for (let i = 0; i < entries.length; i++) {
+                for (let j = i + 1; j < entries.length; j++) {
+                    const keys1 = new Set(entries[i].key || []);
+                    const keys2 = new Set(entries[j].key || []);
                     const commonKeys = [...keys1].filter(k => keys2.has(k));
                     for (const key of commonKeys) {
                         edges.push({
-                            from: lorebook.entries[entry1].comment,
-                            to: lorebook.entries[entry2].comment,
+                            from: entries[i].comment,
+                            to: entries[j].comment,
                             label: key,
                             title: key
                         });
@@ -62,13 +60,12 @@
                 }
             }
 
-            // Создаем сеть
-            const container = document.getElementById('mynetwork');
+            const container = document.getElementById('graph');
             const data = {nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges)};
             const options = {
                 edges: {
-                    arrows: {to: {enabled: true, scaleFactor: 0.5}},
-                    font: {size: 10, align: 'top'}
+                    arrows: {to: true},
+                    font: {size: 10, align: "top"}
                 },
                 physics: {
                     enabled: true,
