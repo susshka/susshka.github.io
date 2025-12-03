@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Визуализация Lorebook</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+    <h2>Загрузите JSON-файл Lorebook</h2>
+    <input type="file" id="jsonFile" accept=".json">
+    <div id="mynetwork"></div>
+
+    <script>
+        document.getElementById('jsonFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const lorebook = JSON.parse(e.target.result);
+                visualize(lorebook);
+            };
+            reader.readAsText(file);
+        });
+
+        function visualize(lorebook) {
+            const nodes = [];
+            const edges = [];
+
+            // Добавляем ноды
+            for (const entry in lorebook.entries) {
+                const data = lorebook.entries[entry];
+                const content = data.content;
+                const keys = data.key.join(', ');
+                const keysSecondary = data.keysecondary.join(', ');
+                const comment = data.comment;
+
+                const title = `Name:\n${comment}\nContent:\n${content}\nKeys:\n${keys}\nKeySecondary:\n${keysSecondary}`;
+                nodes.push({id: comment, label: comment, title: title});
+            }
+
+            // Добавляем ребра по общим ключам
+            for (const entry1 in lorebook.entries) {
+                for (const entry2 in lorebook.entries) {
+                    if (entry1 >= entry2) continue;
+                    const keys1 = new Set(lorebook.entries[entry1].key);
+                    const keys2 = new Set(lorebook.entries[entry2].key);
+                    const commonKeys = [...keys1].filter(k => keys2.has(k));
+                    for (const key of commonKeys) {
+                        edges.push({
+                            from: lorebook.entries[entry1].comment,
+                            to: lorebook.entries[entry2].comment,
+                            label: key,
+                            title: key
+                        });
+                    }
+                }
+            }
+
+            // Создаем сеть
+            const container = document.getElementById('mynetwork');
+            const data = {nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges)};
+            const options = {
+                edges: {
+                    arrows: {to: {enabled: true, scaleFactor: 0.5}},
+                    font: {size: 10, align: 'top'}
+                },
+                physics: {
+                    enabled: true,
+                    barnesHut: {
+                        gravitationalConstant: -1000,
+                        centralGravity: 0.3,
+                        springLength: 200,
+                        springConstant: 0.02
+                    }
+                }
+            };
+            new vis.Network(container, data, options);
+        }
+    </script>
+</body>
+</html>
