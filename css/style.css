@@ -6,7 +6,7 @@
     --bg-card: #fdf7f4;          /* фон самой карточки */
     --accent-orange: #f28c6a;
     --accent-orange-dark: #e06a48;
-    --accent-blue: #7693d8;
+    --accent-blue: #95a1c7;
     --accent-blue-dark: #4b5b9b;
     --border-soft: #f1c3aa;
     --text-main: #3a3640;
@@ -40,8 +40,8 @@ body {
 
     /* сетка‑фон: чуть толще линии и цвет как у шапки */
     background-image:
-        linear-gradient(to right, var(--accent-blue) 2px, transparent 2px),
-        linear-gradient(to bottom, var(--accent-blue) 2px, transparent 2px);
+        linear-gradient(to right, var(--accent-blue) 2px, transparent 6px),
+        linear-gradient(to bottom, var(--accent-blue) 2px, transparent 6px);
     background-size: 120px 120px;
 }
 
@@ -323,4 +323,5 @@ body {
   0% { background-color: rgba(255, 255, 0, 0.4); }
   100% { background-color: transparent; }
 }
+
 
