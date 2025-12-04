@@ -1,14 +1,12 @@
 /* ===== Базовые переменные (палитра из изображения) ===== */
 
 :root {
-    --bg-main: #f4b19b;
-    --bg-main-alt: #fbe3d4;
-    --bg-card: #fdf7f4;
+    --bg-main: #f4b19b;          /* тёплый персиковый фон */
+    --bg-main-alt: #fbe3d4;      /* светлее для плитки */
+    --bg-card: #fdf7f4;          /* фон самой карточки */
     --accent-orange: #f28c6a;
-    --accent-orange-light: #f7a682;
     --accent-orange-dark: #e06a48;
     --accent-blue: #7693d8;
-    --accent-blue-light: #93abec;
     --accent-blue-dark: #4b5b9b;
     --border-soft: #f1c3aa;
     --text-main: #3a3640;
@@ -33,6 +31,7 @@ body {
     background-color: var(--bg-main);
 }
 
+/* фон в виде прямоугольной плитки как на картинке */
 .page-bg {
     min-height: 100vh;
     display: flex;
@@ -50,24 +49,24 @@ body {
     width: min(1100px, 100% - 32px);
     background-color: var(--bg-card);
     border: 4px solid #f6ccb0;
-    border-radius: 10px;            /* менее округлая рамка */
+    border-radius: 8px;              /* менее округлые */
     box-shadow: var(--shadow-soft);
-    padding: 12px 16px 10px;
+    padding: 16px 18px 14px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
 }
 
-/* Верхняя панель */
+/* Верхняя панель как «юзернейм» */
 
 .top-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: var(--accent-blue);
-    border-radius: 4px;             /* почти прямоугольная */
-    padding: 8px 12px;
-    color: #ffffff;
+    border-radius: 6px;              /* почти прямоугольная */
+    padding: 10px 14px;
+    color: #fff;
     font-weight: 600;
     letter-spacing: 0.03em;
 }
@@ -78,14 +77,14 @@ body {
 
 .top-bar__icons {
     display: flex;
-    gap: 6px;
+    gap: 8px;
 }
 
 .icon-circle {
-    width: 22px;
-    height: 22px;
-    border-radius: 4px;             /* маленький радиус, не круг */
-    background: rgba(255, 255, 255, 0.3);
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: rgba(250, 250, 255, 0.25);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -96,8 +95,8 @@ body {
 
 .layout {
     display: grid;
-    grid-template-columns: 250px minmax(0, 1fr);
-    gap: 10px;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 14px;
 }
 
 @media (max-width: 800px) {
@@ -106,13 +105,13 @@ body {
     }
 }
 
-/* Общий стиль блоков */
+/* Общий стиль «карточных» блоков */
 
 .card-block {
     background: #fff7f2;
-    border-radius: 4px;              /* прямоугольные блоки */
-    border: 1px solid var(--border-soft);
-    padding: 14px 16px;
+    border-radius: 6px;              /* прямоугольные блоки */
+    border: 2px solid var(--border-soft);
+    padding: 16px 18px;
 }
 
 /* ===== Навигация ===== */
@@ -120,12 +119,12 @@ body {
 .navigation {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .nav-title {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--accent-blue-dark);
@@ -137,20 +136,18 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
 }
-
-/* цветные плашки меню — пастельные, без обводки, белый текст */
 
 .nav-list li a {
     display: block;
-    padding: 7px 9px;
-    border-radius: 4px;
+    padding: 8px 10px;
+    border-radius: 4px;                  /* прямоугольные плашки меню */
     text-decoration: none;
     font-size: 0.9rem;
-    color: #ffffff;                            /* белый текст */
-    background: var(--accent-orange-light);   /* пастельный оранжевый */
-    border: none;                             /* без обводки */
+    color: #ffffff;                      /* белый текст на цветной плашке */
+    background: #f2a37f;                 /* пастельный оранжевый */
+    border: none;                        /* убрали обводку */
     transition: background 0.15s ease, transform 0.1s ease,
                 box-shadow 0.15s ease;
 }
@@ -161,12 +158,12 @@ body {
 }
 
 .nav-list li a:hover {
-    background: var(--accent-orange);
+    background: #ec8b5f;
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
-/* ===== Контент ===== */
+/* ===== Контентная часть ===== */
 
 .content {
     background: #fffdfb;
@@ -175,98 +172,99 @@ body {
 .content h1,
 .content h2,
 .content h3 {
+    font-family: inherit;
     color: var(--accent-blue-dark);
     margin-top: 0;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .content h1 {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
 
 .content h2 {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
 }
 
 .content h3 {
-    font-size: 0.98rem;
+    font-size: 1rem;
 }
 
+/* важное: не задаём жёстко цвет, только размер и отступы */
 .content p {
     font-size: 0.94rem;
-    color: var(--text-main);
-    margin: 5px 0;
+    margin: 6px 0;
 }
 
 .content code {
     background: #f4d5c0;
-    padding: 1px 4px;
-    border-radius: 3px;
+    padding: 1px 5px;
+    border-radius: 4px;
     font-size: 0.86rem;
 }
 
-/* Подразделы – лёгкие прямоугольные блоки */
+/* Подразделы как «блоки» */
 
 .content section {
-    border-radius: 4px;
+    border-radius: 4px;                 /* прямоугольные */
     border: 1px solid #f0d0bf;
-    padding: 9px 10px;
-    margin-bottom: 8px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
     background: #fffaf6;
 }
 
-/* Важные/цветные плашки: плоские, белый текст */
+/* Важные блоки (заметки, предупреждения) — цветные плашки с белым текстом, без рамок */
 
 .important-notice,
 .warning,
 .tip-box,
 .disclaimer {
     border-radius: 4px;
-    padding: 8px 9px;
-    margin: 6px 0;
+    padding: 10px 12px;
+    margin: 8px 0;
     font-size: 0.9rem;
-    border: none;                  /* убрали обводку */
-    color: #ffffff;                /* белый текст на цветной плашке */
+    color: #ffffff;                     /* белый текст */
+    border: none;                       /* убрана обводка */
 }
 
 .important-notice {
-    background: #f6a86d;           /* пастельный тёплый */
+    background: #f2a37f;                /* пастельный оранжевый */
 }
 
 .warning {
-    background: #e47479;
+    background: #f28ba0;                /* мягкий розово-красный */
 }
 
 .tip-box {
-    background: #8ca4e8;
+    background: #8ba5e6;                /* пастельный синий */
 }
 
 .disclaimer {
-    background: #b48ad8;
+    background: #b58fdc;                /* мягкий сиреневый */
 }
 
-/* Картинки */
+/* Картинки и ряды картинок */
 
 .content img {
     max-width: 100%;
-    border-radius: 4px;
+    border-radius: 4px;                 /* прямоугольные */
     display: block;
 }
 
 .images-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin: 6px 0;
+    gap: 8px;
+    margin: 8px 0;
 }
 
 .images-row img {
     flex: 1 1 120px;
 }
 
-/* ===== Оглавление (toc.html) ===== */
+/* Оглавление (toc.html) */
 
 .toc-section h1 {
     text-align: left;
@@ -274,9 +272,9 @@ body {
 
 .toc-list h2 {
     border-bottom: 2px solid #f3d0b9;
-    padding-bottom: 4px;
-    margin-top: 14px;
-    margin-bottom: 6px;
+    padding-bottom: 6px;
+    margin-top: 18px;
+    margin-bottom: 8px;
     font-size: 1rem;
     color: var(--accent-orange-dark);
 }
@@ -284,37 +282,42 @@ body {
 .toc-list ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 4px 0;
+    margin: 0 0 6px 0;
 }
 
 .toc-list li {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
-
-/* цветные ссылки в оглавлении – плоские, белый текст */
 
 .toc-list a {
     display: block;
-    padding: 6px 8px;
-    border-radius: 4px;
-    background: var(--accent-blue-light);
-    border: none;
+    padding: 6px 9px;
+    border-radius: 4px;                 /* прямоугольные */
+    background: #f2a37f;                /* пастельный оранжевый */
+    color: #ffffff;                     /* белый текст */
+    border: none;                       /* без рамки */
     font-size: 0.9rem;
     text-decoration: none;
-    color: #ffffff;
     transition: background 0.15s ease, transform 0.1s ease;
 }
 
 .toc-list a:hover {
-    background: var(--accent-blue);
+    background: #ec8b5f;
     transform: translateY(-1px);
 }
 
 /* ===== Подвал ===== */
 
 .page-footer {
-    margin-top: 2px;
+    margin-top: 4px;
     text-align: center;
     font-size: 0.8rem;
     color: var(--text-muted);
+}
+
+/* ===== Подсветка якоря ===== */
+
+@keyframes highlight {
+  0% { background-color: rgba(255, 255, 0, 0.4); }
+  100% { background-color: transparent; }
 }
