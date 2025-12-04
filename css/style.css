@@ -1,56 +1,320 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  background-color: #f4f4f4;
-  color: #333;
+/* ===== Базовые переменные (палитра из изображения) ===== */
+
+:root {
+    --bg-main: #f4b19b;          /* тёплый персиковый фон */
+    --bg-main-alt: #fbe3d4;      /* светлее для плитки */
+    --bg-card: #fdf7f4;          /* фон самой карточки */
+    --accent-orange: #f28c6a;
+    --accent-orange-dark: #e06a48;
+    --accent-blue: #7693d8;
+    --accent-blue-dark: #4b5b9b;
+    --border-soft: #f1c3aa;
+    --text-main: #3a3640;
+    --text-muted: #6b6472;
+    --chip-bg: #f0d0bf;
+    --chip-bg-blue: #d3ddf4;
+    --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
 
-.container {
-  display: flex;
-  max-width: 1200px;
-  margin: 20px auto;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* ===== Общие стили страницы ===== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+    color: var(--text-main);
+    background-color: var(--bg-main);
+}
+
+/* фон в виде прямоугольной плитки как на картинке */
+.page-bg {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image:
+        linear-gradient(to right, var(--bg-main-alt) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-main-alt) 1px, transparent 1px);
+    background-size: 120px 120px;
+}
+
+/* ===== Главная карточка ===== */
+
+.card-shell {
+    width: min(1100px, 100% - 32px);
+    background-color: var(--bg-card);
+    border: 4px solid #f6ccb0;
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+    padding: 16px 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Верхняя панель как «юзернейм» */
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--accent-blue);
+    border-radius: 12px;
+    padding: 10px 14px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.top-bar__title {
+    text-transform: lowercase;
+}
+
+.top-bar__icons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-circle {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(250, 250, 255, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+}
+
+/* ===== Основная сетка ===== */
+
+.layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 14px;
+}
+
+@media (max-width: 800px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Общий стиль «карточных» блоков */
+
+.card-block {
+    background: #fff7f2;
+    border-radius: 14px;
+    border: 2px solid var(--border-soft);
+    padding: 16px 18px;
+}
+
+/* ===== Навигация ===== */
 
 .navigation {
-  width: 250px;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  background: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.navigation h3 {
-  margin-top: 0;
+.nav-title {
+    margin: 0;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-blue-dark);
 }
 
-.navigation ul {
-  list-style: none;
-  padding: 0;
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.navigation ul li a {
-  text-decoration: none;
-  color: #007bff;
-  display: block;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+.nav-list li a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    background: #ffe7d6;
+    border: 1px solid #f8c7a5;
+    transition: background 0.15s ease, transform 0.1s ease,
+                box-shadow 0.15s ease;
 }
 
-.navigation ul li a:hover {
-  background-color: #e9ecef;
+.nav-list li a strong {
+    font-weight: 700;
+    color: var(--accent-blue-dark);
 }
 
-#content-area {
-  flex: 1;
-  padding: 20px 40px;
+.nav-list li a:hover {
+    background: #ffd7bf;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-#content-area img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
+/* ===== Контентная часть ===== */
+
+.content {
+    background: #fffdfb;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+    font-family: inherit;
+    color: var(--accent-blue-dark);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.content h1 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.content h2 {
+    font-size: 1.1rem;
+}
+
+.content h3 {
+    font-size: 1rem;
+}
+
+.content p {
+    font-size: 0.94rem;
+    color: var(--text-main);
+    margin: 6px 0;
+}
+
+.content code {
+    background: #f4d5c0;
+    padding: 1px 5px;
+    border-radius: 6px;
+    font-size: 0.86rem;
+}
+
+/* Подразделы как «блоки» с лёгкой рамкой */
+
+.content section {
+    border-radius: 12px;
+    border: 1px solid #f0d0bf;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    background: #fffaf6;
+}
+
+/* Важные блоки (заметки, предупреждения) */
+
+.important-notice,
+.warning,
+.tip-box,
+.disclaimer {
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+}
+
+.important-notice {
+    background: #ffe8d1;
+    border: 1px solid #f6c49d;
+}
+
+.warning {
+    background: #ffe0e3;
+    border: 1px solid #f0a5af;
+}
+
+.tip-box {
+    background: #e6f0ff;
+    border: 1px solid #c3d4ff;
+}
+
+.disclaimer {
+    background: #f7edf7;
+    border: 1px solid #e1c8ea;
+}
+
+/* Картинки и ряды картинок */
+
+.content img {
+    max-width: 100%;
+    border-radius: 12px;
+    display: block;
+}
+
+.images-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.images-row img {
+    flex: 1 1 120px;
+}
+
+/* Оглавление (toc.html) отдельным стилем */
+
+.toc-section h1 {
+    text-align: left;
+}
+
+.toc-list h2 {
+    border-bottom: 2px solid #f3d0b9;
+    padding-bottom: 6px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--accent-orange-dark);
+}
+
+.toc-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 6px 0;
+}
+
+.toc-list li {
+    margin-bottom: 5px;
+}
+
+.toc-list a {
+    display: block;
+    padding: 6px 9px;
+    border-radius: 10px;
+    background: #fdf0e4;
+    border: 1px solid #f3c9a8;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.toc-list a:hover {
+    background: #f8e0cd;
+    transform: translateY(-1px);
+}
+
+/* ===== Подвал ===== */
+
+.page-footer {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
