@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Гайд по ошибкам в Таверне и Джанитор</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navigation">
-        <h3>Меню</h3>
-        <ul>
-          <li><a href="#toc" data-content="toc"><strong>🔍 Оглавление</strong></a></li>
-          <li><a href="#intro" data-content="intro">Введение</a></li>
-          <li><a href="#base" data-content="base">База (Консоль)</a></li>
-          <li><a href="#tavern" data-content="tavern">Ошибки Таверны</a></li>
-          <li>
-            <a href="#janitorai" data-content="janitorai">Ошибки JanitorAI</a>
-          </li>
-          <li>
-            <a href="#electronhub" data-content="electronhub"
-              >Ошибки ElectronHub.ai</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <main id="content-area">
-        <!-- Сюда будет загружаться контент -->
-      </main>
-    </div>
-    <script src="js/app.js"></script>
-  </body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд по ошибкам в Таверне и JanitorAI</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="page-bg">
+        <div class="card-shell">
+            <header class="top-bar">
+                <div class="top-bar__title">trigger tourist guide</div>
+                <div class="top-bar__icons">
+                    <span class="icon-circle">⟳</span>
+                    <span class="icon-circle">✉</span>
+                </div>
+            </header>
 
+            <div class="layout">
+                <nav class="navigation card-block">
+                    <h3 class="nav-title">Меню</h3>
+                    <ul class="nav-list">
+                        <li><a href="#toc" data-content="toc"><strong>Оглавление</strong></a></li>
+                        <li><a href="#intro" data-content="intro">Введение</a></li>
+                        <li><a href="#base" data-content="base">База (консоль)</a></li>
+                        <li><a href="#tavern" data-content="tavern">Ошибки Таверны</a></li>
+                        <li><a href="#janitorai" data-content="janitorai">Ошибки JanitorAI</a></li>
+                        <li><a href="#electronhub" data-content="electronhub">Ошибки ElectronHub</a></li>
+                    </ul>
+                </nav>
+
+                <main id="content-area" class="content card-block">
+                    <!-- Сюда подгружаются файлы из /content -->
+                </main>
+            </div>
+
+            <footer class="page-footer">
+                <span>гайд для Trigger Tourist • сделано на GitHub Pages</span>
+            </footer>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
