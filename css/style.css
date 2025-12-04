@@ -37,9 +37,11 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* сетка‑фон: чуть толще линии и цвет как у шапки */
     background-image:
-        linear-gradient(to right, var(--bg-main-alt) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--bg-main-alt) 1px, transparent 1px);
+        linear-gradient(to right, var(--accent-blue) 2px, transparent 2px),
+        linear-gradient(to bottom, var(--accent-blue) 2px, transparent 2px);
     background-size: 120px 120px;
 }
 
@@ -321,3 +323,4 @@ body {
   0% { background-color: rgba(255, 255, 0, 0.4); }
   100% { background-color: transparent; }
 }
+
