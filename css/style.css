@@ -2,7 +2,7 @@
 
 :root {
     --bg-main: #f4b19b;          /* тёплый персиковый фон */
-    --bg-main-alt: #fbe3d4;      /* светлее для плитки */
+    --bg-main-alt: #d6cecd;      /* светлее для плитки */
     --bg-card: #fdf7f4;          /* фон самой карточки */
     --accent-orange: #f28c6a;
     --accent-orange-dark: #e06a48;
@@ -323,5 +323,6 @@ body {
   0% { background-color: rgba(255, 255, 0, 0.4); }
   100% { background-color: transparent; }
 }
+
 
 
