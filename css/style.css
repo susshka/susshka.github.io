@@ -1,18 +1,22 @@
+/* ===== Базовые переменные (палитра из изображения) ===== */
+
 :root {
     --bg-main: #f4b19b;
     --bg-main-alt: #fbe3d4;
     --bg-card: #fdf7f4;
     --accent-orange: #f28c6a;
+    --accent-orange-light: #f7a682;
     --accent-orange-dark: #e06a48;
     --accent-blue: #7693d8;
+    --accent-blue-light: #93abec;
     --accent-blue-dark: #4b5b9b;
     --border-soft: #f1c3aa;
     --text-main: #3a3640;
     --text-muted: #6b6472;
-    --chip-bg: #f0d0bf;
-    --chip-bg-blue: #d3ddf4;
     --shadow-soft: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
+
+/* ===== Общие стили страницы ===== */
 
 *,
 *::before,
@@ -40,18 +44,18 @@ body {
     background-size: 120px 120px;
 }
 
-/* === Карточка: теперь прямые углы === */
+/* ===== Главная карточка ===== */
 
 .card-shell {
     width: min(1100px, 100% - 32px);
     background-color: var(--bg-card);
     border: 4px solid #f6ccb0;
-    border-radius: 4px;              /* было 18px */
+    border-radius: 10px;            /* менее округлая рамка */
     box-shadow: var(--shadow-soft);
-    padding: 16px 18px 14px;
+    padding: 12px 16px 10px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 /* Верхняя панель */
@@ -61,9 +65,9 @@ body {
     align-items: center;
     justify-content: space-between;
     background: var(--accent-blue);
-    border-radius: 2px;              /* почти прямоугольник */
-    padding: 10px 14px;
-    color: #fff;
+    border-radius: 4px;             /* почти прямоугольная */
+    padding: 8px 12px;
+    color: #ffffff;
     font-weight: 600;
     letter-spacing: 0.03em;
 }
@@ -74,26 +78,26 @@ body {
 
 .top-bar__icons {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
 .icon-circle {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: rgba(250, 250, 255, 0.25);
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;             /* маленький радиус, не круг */
+    background: rgba(255, 255, 255, 0.3);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
-/* Сетка */
+/* ===== Основная сетка ===== */
 
 .layout {
     display: grid;
-    grid-template-columns: 260px minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 10px;
 }
 
 @media (max-width: 800px) {
@@ -102,26 +106,26 @@ body {
     }
 }
 
-/* Карточные блоки: прямоугольные */
+/* Общий стиль блоков */
 
 .card-block {
     background: #fff7f2;
-    border-radius: 2px;              /* было 14px */
-    border: 2px solid var(--border-soft);
-    padding: 16px 18px;
+    border-radius: 4px;              /* прямоугольные блоки */
+    border: 1px solid var(--border-soft);
+    padding: 14px 16px;
 }
 
-/* Навигация */
+/* ===== Навигация ===== */
 
 .navigation {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .nav-title {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--accent-blue-dark);
@@ -133,36 +137,36 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
 }
 
-/* Цветные плашки меню: плоские, прямые, текст белый */
+/* цветные плашки меню — пастельные, без обводки, белый текст */
 
 .nav-list li a {
     display: block;
-    padding: 8px 10px;
-    border-radius: 2px;              /* было 10px */
+    padding: 7px 9px;
+    border-radius: 4px;
     text-decoration: none;
     font-size: 0.9rem;
-    color: #ffffff;                  /* белый текст */
-    background: var(--accent-orange);
-    border: none;                    /* убрана обводка */
+    color: #ffffff;                            /* белый текст */
+    background: var(--accent-orange-light);   /* пастельный оранжевый */
+    border: none;                             /* без обводки */
     transition: background 0.15s ease, transform 0.1s ease,
                 box-shadow 0.15s ease;
 }
 
 .nav-list li a strong {
     font-weight: 700;
-    color: #ffffff;                  /* тоже белый */
+    color: #ffffff;
 }
 
 .nav-list li a:hover {
-    background: var(--accent-orange-dark);
+    background: var(--accent-orange);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
-/* Контент */
+/* ===== Контент ===== */
 
 .content {
     background: #fffdfb;
@@ -171,109 +175,98 @@ body {
 .content h1,
 .content h2,
 .content h3 {
-    font-family: inherit;
     color: var(--accent-blue-dark);
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .content h1 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
 }
 
 .content h2 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
 .content h3 {
-    font-size: 1rem;
+    font-size: 0.98rem;
 }
 
 .content p {
     font-size: 0.94rem;
     color: var(--text-main);
-    margin: 6px 0;
+    margin: 5px 0;
 }
 
 .content code {
     background: #f4d5c0;
-    padding: 1px 5px;
-    border-radius: 2px;
+    padding: 1px 4px;
+    border-radius: 3px;
     font-size: 0.86rem;
 }
 
-/* Внутренние секции: более прямоугольные блоки */
+/* Подразделы – лёгкие прямоугольные блоки */
 
 .content section {
-    border-radius: 2px;              /* было 12px */
+    border-radius: 4px;
     border: 1px solid #f0d0bf;
-    padding: 10px 12px;
-    margin-bottom: 10px;
+    padding: 9px 10px;
+    margin-bottom: 8px;
     background: #fffaf6;
 }
 
-/* Важные блоки: плашки без явной обводки, текст белый на цветных */
+/* Важные/цветные плашки: плоские, белый текст */
 
 .important-notice,
 .warning,
 .tip-box,
 .disclaimer {
-    border-radius: 2px;
-    padding: 10px 12px;
-    margin: 8px 0;
+    border-radius: 4px;
+    padding: 8px 9px;
+    margin: 6px 0;
     font-size: 0.9rem;
+    border: none;                  /* убрали обводку */
+    color: #ffffff;                /* белый текст на цветной плашке */
 }
 
-/* оранжевая плашка */
 .important-notice {
-    background: var(--accent-orange);
-    border: none;
-    color: #ffffff;
+    background: #f6a86d;           /* пастельный тёплый */
 }
 
-/* розово-красная плашка */
 .warning {
-    background: #f57a85;
-    border: none;
-    color: #ffffff;
+    background: #e47479;
 }
 
-/* синяя плашка */
 .tip-box {
-    background: var(--accent-blue);
-    border: none;
-    color: #ffffff;
+    background: #8ca4e8;
 }
 
-/* светлая, можно оставить тёмный текст */
 .disclaimer {
-    background: #f7edf7;
-    border: none;
-    color: var(--text-main);
+    background: #b48ad8;
 }
 
 /* Картинки */
 
 .content img {
     max-width: 100%;
-    border-radius: 2px;              /* почти прямоугольные */
+    border-radius: 4px;
     display: block;
 }
 
 .images-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin: 8px 0;
+    gap: 6px;
+    margin: 6px 0;
 }
 
 .images-row img {
     flex: 1 1 120px;
 }
 
-/* Оглавление */
+/* ===== Оглавление (toc.html) ===== */
 
 .toc-section h1 {
     text-align: left;
@@ -281,9 +274,9 @@ body {
 
 .toc-list h2 {
     border-bottom: 2px solid #f3d0b9;
-    padding-bottom: 6px;
-    margin-top: 18px;
-    margin-bottom: 8px;
+    padding-bottom: 4px;
+    margin-top: 14px;
+    margin-bottom: 6px;
     font-size: 1rem;
     color: var(--accent-orange-dark);
 }
@@ -291,20 +284,20 @@ body {
 .toc-list ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 6px 0;
+    margin: 0 0 4px 0;
 }
 
 .toc-list li {
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
-/* цветные плашки в оглавлении: тоже плоские и белый текст */
+/* цветные ссылки в оглавлении – плоские, белый текст */
 
 .toc-list a {
     display: block;
-    padding: 6px 9px;
-    border-radius: 2px;
-    background: var(--accent-blue);
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: var(--accent-blue-light);
     border: none;
     font-size: 0.9rem;
     text-decoration: none;
@@ -313,22 +306,15 @@ body {
 }
 
 .toc-list a:hover {
-    background: var(--accent-blue-dark);
+    background: var(--accent-blue);
     transform: translateY(-1px);
 }
 
-/* Подвал */
+/* ===== Подвал ===== */
 
 .page-footer {
-    margin-top: 4px;
+    margin-top: 2px;
     text-align: center;
     font-size: 0.8rem;
     color: var(--text-muted);
-}
-
-/* подсветка якоря */
-
-@keyframes highlight {
-  0% { background-color: rgba(255, 255, 0, 0.4); }
-  100% { background-color: transparent; }
 }
